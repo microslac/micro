@@ -1,0 +1,40 @@
+# Compiled Python files
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.env/
+
+# Dependency directories
+lib/
+libs/
+Library/
+target/
+dist/
+build/
+bin/
+
+# Distribution files
+*.egg
+*.egg-info
+*.dist-info/
+*.whl
+
+# Cache and temporary files
+# *.log
+*.cache
+*.swp
+*.bak
+*.tmp
+*.out
+
+# IDE files
+.vscode/
+.idea/
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+
+scripts/
