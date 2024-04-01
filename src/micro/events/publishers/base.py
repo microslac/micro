@@ -1,14 +1,13 @@
 from __future__ import annotations
 
-import os
 import json
-import pika
+import os
 import time
 
+import pika
 from pika import BasicProperties
-from pika.adapters.blocking_connection import BlockingConnection, BlockingChannel
+from pika.adapters.blocking_connection import BlockingChannel, BlockingConnection
 from pika.exchange_type import ExchangeType
-from pika.exceptions import StreamLostError
 
 
 class Publisher:
@@ -28,10 +27,10 @@ class Publisher:
         if not self.is_enabled():
             return
 
-        host = os.getenv("RABBITMQ_BROKER_HOST", default="")
-        port = os.getenv("RABBITMQ_BROKER_PORT", default=0)
-        username = os.getenv("RABBITMQ_BROKER_USERNAME", default="")
-        password = os.getenv("RABBITMQ_BROKER_PASSWORD", default="")
+        host = os.getenv("RABBITMQ_HOST", default="")
+        port = os.getenv("RABBITMQ_PORT", default=0)
+        username = os.getenv("RABBITMQ_USERNAME", default="")
+        password = os.getenv("RABBITMQ_PASSWORD", default="")
 
         credentials = pika.PlainCredentials(username=username, password=password)
         parameters = pika.ConnectionParameters(host=host, port=port, credentials=credentials)
@@ -42,12 +41,12 @@ class Publisher:
         self.channel.exchange_declare(self.exchange, exchange_type=exchange_type, **kwargs)
 
     def publish(
-            self,
-            data: dict,
-            routing_key: str,
-            mandatory: bool = False,
-            retry_attempts: int = 5,
-            **kwargs,
+        self,
+        data: dict,
+        routing_key: str,
+        mandatory: bool = False,
+        retry_attempts: int = 5,
+        **kwargs,
     ) -> None:
         if not self.is_enabled():
             return
